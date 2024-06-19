@@ -163,9 +163,9 @@ export const contentWidthArr: OptionType[] = [
 ];
 
 export const fontSizeOptions: OptionType[] = [
-	{ title: '18px', value: '18px', className: 'font-size-18' },
-	{ title: '25px', value: '25px', className: 'font-size-25' },
-	{ title: '38px', value: '38px', className: 'font-size-38' },
+	{ title: '18 px', value: '18px', className: 'font-size-18' },
+	{ title: '25 px', value: '25px', className: 'font-size-25' },
+	{ title: '38 px', value: '38px', className: 'font-size-38' },
 ];
 
 export const defaultArticleState = {

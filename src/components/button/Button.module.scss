@@ -8,12 +8,21 @@
 	text-align: center;
 	border: 1px solid #000000;
 	cursor: pointer;
+	background-color: white;
 }
 
-.button:active {
+.button[name='resetButton'] {
+	background-color: white;
+}
+.button[name='applyButton'] {
 	background: var(--gold, #ffc802);
 }
-
-.button:hover {
-	background: var(--gold, #ffc802);
+.button[name='resetButton']:hover {
+	background-color: black;
+}
+.button[name='resetButton']:hover div {
+	color: white;
+}
+.button[name='applyButton']:hover {
+	background-color: #ffedab;
 }
