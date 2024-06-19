@@ -11,62 +11,66 @@ import {
 	fontFamilyOptions,
 	fontSizeOptions,
 	OptionType,
+	defaultArticleState,
 } from 'src/constants/articleProps';
 import { RadioGroup } from '../radio-group/RadioGroup';
 import { useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Select } from '../select';
-import { useOutsideClick } from './hooks/useOutsideClick';
+import { useClose } from './hooks/useClose';
 
 type ArticleParamsFormProps = {
-	tempParams: {
-		fontFamilyOption: OptionType;
-		fontColor: OptionType;
-		fontSizeOption: OptionType;
-		contentWidth: OptionType;
-		backgroundColor: OptionType;
-	};
-	onTempUpdate: (
-		key: keyof ArticleParamsFormProps['tempParams'],
-		option: OptionType
-	) => void;
-	onApply: () => void;
+	onApply: (params: typeof defaultArticleState) => void;
 	onReset: () => void;
 };
 
 export const ArticleParamsForm = ({
-	tempParams,
-	onTempUpdate,
 	onApply,
 	onReset,
 }: ArticleParamsFormProps) => {
-	const [formState, setFormState] = useState(false);
+	const [tempParams, setTempParams] = useState(defaultArticleState);
+	const [isOpenAtricleParams, setisOpenAtricleParams] = useState(false);
 	const formRef = useRef(null);
 
 	const handleSelectChange = (
 		option: OptionType,
-		key: keyof ArticleParamsFormProps['tempParams']
+		key: keyof typeof defaultArticleState
 	) => {
-		onTempUpdate(key, option);
+		setTempParams((prevState) => ({
+			...prevState,
+			[key]: option,
+		}));
 	};
 
-	const handleClickOutside = () => {
-		setFormState(false);
-	};
-
-	useOutsideClick(formRef, handleClickOutside);
+	useClose({
+		isOpenAtricleParams,
+		onClose: () => setisOpenAtricleParams(false),
+		rootRef: formRef,
+	});
 
 	const handleClick = () => {
-		setFormState(!formState);
+		setisOpenAtricleParams(!isOpenAtricleParams);
+	};
+
+	const handleApplyClick = () => {
+		onApply(tempParams);
+	};
+
+	const handleResetClick = () => {
+		setTempParams(defaultArticleState);
+		onReset();
 	};
 
 	return (
 		<>
-			<ArrowButton onClick={handleClick} formState={formState} />
+			<ArrowButton
+				onClick={handleClick}
+				isOpenAtricleParams={isOpenAtricleParams}
+			/>
 			<aside
 				ref={formRef}
 				className={clsx(styles.container, {
-					[styles.container_open]: formState,
+					[styles.container_open]: isOpenAtricleParams,
 				})}>
 				<form className={styles.form}>
 					<div className={styles.topContainer}>
@@ -110,13 +114,13 @@ export const ArticleParamsForm = ({
 						<Button
 							title='Сбросить'
 							type='button'
-							onClick={onReset}
+							onClick={handleResetClick}
 							name='resetButton'
 						/>
 						<Button
 							title='Применить'
 							type='button'
-							onClick={onApply}
+							onClick={handleApplyClick}
 							name='applyButton'
 						/>
 					</div>

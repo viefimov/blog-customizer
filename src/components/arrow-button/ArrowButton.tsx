@@ -8,20 +8,27 @@ import clsx from 'clsx';
 
 type ArrowButtonProps = {
 	onClick?: MouseEventHandler<HTMLDivElement>;
-	formState: boolean;
+	isOpenAtricleParams: boolean;
 };
-export const ArrowButton = ({ onClick, formState }: ArrowButtonProps) => {
+export const ArrowButton = ({
+	onClick,
+	isOpenAtricleParams,
+}: ArrowButtonProps) => {
 	return (
 		<div
 			role='button'
 			aria-label='Открыть/Закрыть форму параметров статьи'
 			tabIndex={0}
-			className={clsx(styles.container, { [styles.container_open]: formState })}
+			className={clsx(styles.container, {
+				[styles.container_open]: isOpenAtricleParams,
+			})}
 			onClick={onClick}>
 			<img
 				src={arrow}
 				alt='иконка стрелочки'
-				className={clsx(styles.arrow, { [styles.arrow_open]: formState })}
+				className={clsx(styles.arrow, {
+					[styles.arrow_open]: isOpenAtricleParams,
+				})}
 			/>
 		</div>
 	);

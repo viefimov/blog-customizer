@@ -13,7 +13,7 @@ export const ArrowButtonStory: Story = {
 	render: () => {
 		return (
 			<>
-				<ArrowButton formState={false} />
+				<ArrowButton isOpenAtricleParams={false} />
 			</>
 		);
 	},

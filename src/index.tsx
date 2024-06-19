@@ -7,7 +7,6 @@ import { ArticleParamsForm } from './components/article-params-form/ArticleParam
 import {
 	defaultArticleState,
 	ArticleStateType,
-	OptionType,
 } from './constants/articleProps';
 
 import './styles/index.scss';
@@ -16,22 +15,12 @@ import styles from './styles/index.module.scss';
 const App = () => {
 	const [articleParams, setArticleParams] =
 		useState<ArticleStateType>(defaultArticleState);
-	const [tempParams, setTempParams] =
-		useState<ArticleStateType>(defaultArticleState);
 
-	const handleTempUpdate = (key: keyof ArticleStateType, value: OptionType) => {
-		setTempParams((prevState) => ({
-			...prevState,
-			[key]: value,
-		}));
-	};
-
-	const handleApply = () => {
-		setArticleParams(tempParams);
+	const handleApply = (params: ArticleStateType) => {
+		setArticleParams(params);
 	};
 
 	const handleReset = () => {
-		setTempParams(defaultArticleState);
 		setArticleParams(defaultArticleState);
 	};
 
@@ -47,12 +36,7 @@ const App = () => {
 					'--bg-color': articleParams.backgroundColor.value,
 				} as React.CSSProperties
 			}>
-			<ArticleParamsForm
-				tempParams={tempParams}
-				onTempUpdate={handleTempUpdate}
-				onApply={handleApply}
-				onReset={handleReset}
-			/>
+			<ArticleParamsForm onApply={handleApply} onReset={handleReset} />
 			<Article />
 		</div>
 	);
