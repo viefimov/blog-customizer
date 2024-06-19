@@ -40,7 +40,8 @@
 
 .label:hover,
 .item[data-checked='true'] .label:hover {
-	background: var(--gold, #ffc802);
+	background-color: #FFEDAB;
+;
 }
 
 .item[data-checked='true'] .label {

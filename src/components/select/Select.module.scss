@@ -44,7 +44,7 @@
 
 .selectWrapper:not([data-is-active='true'])
 	.placeholder:not([data-status='invalid']):hover {
-	outline: 3px solid #000000;
+	outline: 1px solid var(--gold, #ffc802);
 }
 
 .select {
@@ -78,6 +78,10 @@
 }
 
 .option:hover {
+	background-color: #EEEEEE;
+}
+
+.option:active {
 	background: var(--grey, #c4c4c4);
 }
 

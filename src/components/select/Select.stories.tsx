@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
 import { Select } from './Select';
-import { useState } from 'react';
+import { OptionType } from '../../constants/articleProps';
 
 const meta: Meta<typeof Select> = {
 	component: Select,
@@ -10,27 +9,42 @@ const meta: Meta<typeof Select> = {
 export default meta;
 type Story = StoryObj<typeof Select>;
 
-const SelectWithState = () => {
-	const options = [
-		{ title: '1 опция', value: '1 опция', className: '' },
-		{ title: '2 опция', value: '2 опция', className: '' },
-		{ title: '3 опция', value: '3 опция', className: '' },
-		{ title: '4 опция', value: '4 опция', className: '' },
-	];
-	const [selected, setSelected] = useState(options[0]);
-
+export const SelectWithState = ({
+	options,
+	title,
+	selected,
+	onChange,
+}: {
+	options: OptionType[];
+	title?: string;
+	selected: OptionType;
+	onChange: (option: OptionType) => void;
+}) => {
 	return (
 		<>
 			<Select
 				selected={selected}
-				onChange={setSelected}
+				onChange={onChange}
 				options={options}
-				title='Название радиогруппы'
+				title={title}
 			/>
 		</>
 	);
 };
 
 export const SelectStory: Story = {
-	render: () => <SelectWithState />,
+	render: () => (
+		<SelectWithState
+			options={[]}
+			selected={{
+				title: '',
+				value: '',
+				className: '',
+				optionClassName: undefined,
+			}}
+			onChange={function (): void {
+				throw new Error('Function not implemented.');
+			}}
+		/>
+	),
 };
